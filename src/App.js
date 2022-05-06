@@ -1,6 +1,7 @@
 import AddUser from "./Components/Users/AddUser";
 import UserList from "./Components/Users/UserList";
 import { useState } from "react";
+import ErrorModal from "./Components/UI/ErrorModal";
 import "./App.css";
 
 function App() {
@@ -13,15 +14,16 @@ function App() {
       id: Math.random().toString(),
     };
 
-    setUserList((prevUser) => {
-      return [userData, ...prevUser];
+    setUserList((prevUserList) => {
+      return [userData, ...prevUserList];
     });
   };
-  console.log(usersList);
+
   return (
     <div>
       <AddUser newUser={addNewUserHandler} />
       <UserList users={usersList || []} />
+      <ErrorModal title="An error occured" message="Something went wrong" />
     </div>
   );
 }
