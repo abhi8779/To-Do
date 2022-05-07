@@ -6,6 +6,9 @@ import "./App.css";
 
 function App() {
   const [usersList, setUserList] = useState("");
+  const [error, setError] = useState(false);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
 
   const addNewUserHandler = (userName, age) => {
     const userData = {
@@ -19,11 +22,38 @@ function App() {
     });
   };
 
+  const errorHandler = (title, message) => {
+    setTitle(title);
+    setMessage(message);
+    setError(true);
+  };
+
+  const closeWindowHandler = () => {
+    setError(false);
+  };
+
+  const deleteUserHandler = (deleteId) => {
+    setUserList((prevUsersList) => {
+      const updatedUsersList = prevUsersList.filter((user) => {
+        console.log(user.id, deleteId);
+        return user.id !== deleteId;
+      });
+
+      return [...updatedUsersList];
+    });
+  };
+
   return (
     <div>
-      <AddUser newUser={addNewUserHandler} />
-      <UserList users={usersList || []} />
-      <ErrorModal title="An error occured" message="Something went wrong" />
+      <AddUser error={errorHandler} newUser={addNewUserHandler} />
+      <UserList deleteUser={deleteUserHandler} users={usersList || []} />
+      {error && (
+        <ErrorModal
+          closeWindow={closeWindowHandler}
+          title={title}
+          message={message}
+        />
+      )}
     </div>
   );
 }

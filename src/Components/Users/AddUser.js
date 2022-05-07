@@ -18,7 +18,12 @@ const AddUser = (props) => {
     e.preventDefault();
 
     //Data Validation Logic  //Guards claws
-    if (!userName.trim() || !age.trim() || +age < 1) return;
+
+    if (!userName.trim() || !age.trim())
+      return props.error("empty Input field!", "Input field cannot be empty");
+
+    if (+age < 1)
+      return props.error("negative age!", "Age should be a positive number");
 
     props.newUser(userName, age);
 

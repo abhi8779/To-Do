@@ -5,7 +5,7 @@ import Button from "./Button";
 const ErrorModal = (props) => {
   return (
     <div>
-      <div className={styles.backdrop} />
+      <div onClick={props.closeWindow} className={styles.backdrop} />
       <Card className={styles.modal}>
         <header className={styles.header}>
           <h2>{props.title}</h2>
@@ -14,7 +14,7 @@ const ErrorModal = (props) => {
           <p>{props.message}</p>
         </div>
         <footer className={styles.actions}>
-          <Button btnTitle="Okay"></Button>
+          <Button onClick={props.closeWindow} btnTitle="Okay"></Button>
         </footer>
       </Card>
     </div>
